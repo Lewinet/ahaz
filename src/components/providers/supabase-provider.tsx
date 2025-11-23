@@ -16,15 +16,20 @@ export default function SupabaseProvider({
 }: {
   children: React.ReactNode
 }) {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+
   const [supabase] = useState(() =>
-    createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    )
+    createBrowserClient(supabaseUrl, supabaseKey)
   )
   const router = useRouter()
 
   useEffect(() => {
+    // Only set up auth listener if we have valid credentials
+    if (!supabaseUrl || !supabaseKey) {
+      return
+    }
+
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(() => {
@@ -34,7 +39,7 @@ export default function SupabaseProvider({
     return () => {
       subscription.unsubscribe()
     }
-  }, [router, supabase])
+  }, [router, supabase, supabaseUrl, supabaseKey])
 
   return (
     <Context.Provider value={{ supabase }}>
