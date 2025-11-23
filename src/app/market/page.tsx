@@ -1,4 +1,7 @@
 import { getProducts } from '@/lib/actions/market'
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
+
 import { ProductCard } from '@/components/market/product-card'
 import { ModeSwitcher } from '@/components/ui/mode-switcher'
 

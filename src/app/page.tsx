@@ -5,6 +5,9 @@ import { PublicLanding } from '@/components/landing/public-landing'
 import Link from 'next/link'
 import { Wallet, Send, ArrowDownLeft, ArrowUpRight, ShoppingBag, Car, Package, Settings, TrendingUp, Clock } from 'lucide-react'
 
+// Force dynamic rendering to prevent build-time Supabase calls
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const wallet = await getWalletBalance()
 
@@ -132,8 +135,8 @@ export default async function Home() {
                 <div key={tx.id} className="flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                   <div className="flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${tx.is_debit
-                        ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400'
-                        : 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
+                      ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400'
+                      : 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
                       }`}>
                       {tx.is_debit ? <ArrowUpRight size={20} /> : <ArrowDownLeft size={20} />}
                     </div>

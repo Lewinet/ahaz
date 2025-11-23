@@ -1,4 +1,7 @@
 import { getAdminStats, getAllOrders, getAllRides, getAllProducts } from '@/lib/actions/admin'
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
+
 import { seedProducts } from '@/lib/actions/seed'
 import { Users, DollarSign, Activity, Database, ShoppingBag, Car } from 'lucide-react'
 
